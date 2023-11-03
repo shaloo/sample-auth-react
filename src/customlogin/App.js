@@ -3,11 +3,26 @@ import React from "react";
 import { Auth, useAuth } from "@arcana/auth-react";
 
 export default function App() {
- const { loading, isLoggedIn, connect, user  } = useAuth()
+ /*  Default Login Modal *
+ /*
+  return (
+    <div className="App">
+      <h1>Sample Auth React App</h1>
+      <Auth />
+    </div>
+  );
+ */
+
+ const { loading, isLoggedIn, connect, user, loginWithSocial } = useAuth()
+
   const onConnectClick = async () => {
     try {
       /* Pnp login UI */
+      /*
       await connect();
+      */
+      /* Custom login UI */
+      await loginWithSocial('google');
     } catch (err) {
       console.log({ err });
       // Handle error
@@ -20,12 +35,11 @@ export default function App() {
   if (!isLoggedIn) {
     return (
       <div className="App">
-        <h1>Sample Auth React App PNP Login</h1>
-        <Auth/>
+        <h1>Sample Auth React App</h1>
+        <button onClick={onConnectClick}>
+          Connect via Google
+        </button>
       </div>
     );
-  }
-  else {
-    console.log("User Info:", user);
   }
 }
